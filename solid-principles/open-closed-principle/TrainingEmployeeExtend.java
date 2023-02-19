@@ -2,7 +2,7 @@
  * with additional parameter trainingLocation to implement new functionality(By adding new parameter).   
 */
 public class TrainingEmployeeExtend extends TrainingEmployee {
-
+    @SuppressWarnings("all")
     private String trainingLocation;
 
     public TrainingEmployeeExtend(int id, String name, String trainingLocation) {
