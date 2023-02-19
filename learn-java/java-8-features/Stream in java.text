@@ -1,0 +1,107 @@
+Stream: 
+Stream is introduced in java 8. 
+The stream API is used to process the collection of objects. A stream is a sequence of object that supports various methods 
+which can be pipelined to produce the desired results.
+
+The features of java streams are: 
+1) A stream is not a data structure but it takes the input from Collections, Arrays and various I/O channels.
+2) Stream don't change the original data structure, they only provide the result as per the pipelined method.
+
+Different operations on streams.
+
+1) Intermediate Operations: Intermediate Operation are lazily executed, they are pipelined and return the stream as result.
+
+Intermediate Operation: map(), filter(),distinct(),sorted(),limit(),skip()
+
+2) Terminal Operations: Terminal Operation mark the end of the stream and return the result. Terminal operation which return the non-stream values like primitive or object or collection or return nothing are called terminal operations. 
+You can chain the multiple intermediate operations and none of them will do anythung until you invoke a terminal operation. At the time of invoking terminal operation, all the intermediate operation chain which you added earlier will be invoked along with terminal operation.
+
+Terminal operation are: forEach(), count(), Max(),Min(),reduce(),findFirst(), findAny(), toArray(),AnyMatch,allMatch(),noneMatch(). 
+
+Intermediate Operation: i) map(): The map method used to return the stream which consisting of result of applying given function on the elements of the stream.
+Example: List list = Arrays.asList(2,3,4,5);
+         List squareList = list.stream().map(i -> i*i).collect(Collectors.toList());
+         System.out.println(squareList); OR squareList
+
+Here we created list object(list) which consisting the fixed number of array list using asList() method of Arrays class.
+Then we have created again the second squareList which consisting the result where we are applying stream() method of Stream on collection object list to make it stream object the elements on list is now sequentiallly stored in stream further we are calling map() method which will take each element/number and make square of it and finally then the collect method() of terminal operation which will collect/store the square of each element / number and store to squareList using toList() method. finallt we would print the squareList which contain the square of each number like 2*2=4,3*3=9,4*4=16,5*5=25.
+
+Question: What is predicate logic?
+Answer: Predicate : Example: P(x,y): “x + 2 = y” is a predicate. It has two variables x and y; Universe of Discourse: x is in {1,2,3}; y is in {4,5,6}. P(1,4) : 1 + 2 = 4 is a proposition (it is F); P(2,4) : 2 + 2 = 4 is a proposition (it is T);
+
+ii) filter(): The filter() method is used to select / filter elements based on the passed predicate / condition as argument.
+Example: List<String> names = {"pradeep", "Amit", "Alok", "Mohan"};
+         List<String> sortedNames = names.stream().filter(s->s.startWith("p").collect(Collectors.toList());
+here we have predicate filter(s->s.startWith("p")) which would filter those names which starts with letter p and return all those such name in the 'sortedNames' list.
+
+iii) Sorted(): The sorted method is used to sort the stream elements. By default the elements get sorted in asscending order but if you want to sort the stream elements in descening order then just change the order of comparing using compareTo() method. e.g Asscending: i1.compareTo(i2) Or Descending: i2.compareTo(i1);
+
+Example: List<Integer> numList = Arrays.asList(2,1,3,6,89,23,54,12,33,56);
+         Stream<Integer> listOfNum = numList.stream().filter(i -> i > 1).sorted((i1,i2) -> i1.compareTo(i2));
+         listOfNum.forEach(i -> System.out.println(i));
+
+Note: If you reverse the element order then the elements would be printed in descending order e.g: i2.compareTo(i1)
+
+OR 
+
+List names = Arrays.asList("Reflection","Collection","Stream");
+List result = names.stream().sorted().collect(Collectors.toList());
+
+
+Terminal Operations: The terminal operation mark the end of the stream.
+i) collect(): The collect method is used to return the result of the intermediate operations peprformed on stream.
+Example: List number = Arrays.asList(12,34,32,12,19);
+              Set number.stream().map(i -> i*i).collect.(Collectors.toSet());
+
+ii) forEach():  method used to iterate through the each elements of the stream.
+Example: List number = Arrays.asList(1,2,3,4,5);
+              number.stream().forEach(i->System.out.porintln(i));
+
+iii) reduce(): The reduce() method is used to reduce the elements of a stream to a single value.
+               reduce() method takes the binary operator as parameter.  
+Example: List number = Arrays.asList(1,2,3,4,5);
+         int even = number.stream().filter(i -> i%2 ==0).reduce(0,(ans,i), (ans+i));
+Note: Here ans variable is assigned 0 as the initial value and i is added to it .
+
+Question: What is reduce()?  
+Answer: The Stream().reduce() combine the elements of stream and produces a single value.
+reduce operation applies a binary operator to each element in the stream where the first argument to the operator is the return value of the previous application and second argument is the current stream element.
+Example: If  I want the sume of 1,2,3,4 e.g List<Integer> intList = Arrays.asList(1, 2, 3, 4);
+then this line of code would sum the elements into one value which is 10 like below
+System.out.println(intList.stream().reduce((a,b) -> a+b).get());
+So, here different elements/ numbers/ values combined or sum to one value which is 10 as result / ouput. 
+
+Important Points/Observations:
+A stream consists of source followed by zero or more intermediate methods combined together (pipelined) and a terminal method to process the objects obtained from the source as per the methods described.
+Stream is used to compute elements as per the pipelined methods without altering the original value of the object.
+===========================================================================================================================
+Few differences between Terminal Vs Non Terminal(Intermediate) operation are given below:
+
+Intermediate Operations (Non-Terminal)                Vs              Terminal Operations
+1. They return the stream.                               1. They return the non-stream value.
+2. They can be chained together to form a pipeline       2. They cannot be chained together.
+of operations.                             
+3. Intermediate operations are lazily loaded.            3. Terminal operation are eagerly loaded.
+4. They don't produce the end result.                    4. They produce the end result.
+5. Pipelines of operation may contain any numbers of     5. Pipeline of operation contain only 1 terminal operation @end.  
+intermediate operations.
+===========================================================================================================================
+Question: What is peek? 
+Answer: Stream peek() method is a intermediate operations. It take consumer object as input. It return the stream consisting of the elements of current stream.
+It additionally peformed the provided action on each element as elements.
+peek() exist mainly to suppor the debugging. Where we want to see the elements as they flow past a certain point in pipeline. It's similiar to Map but it takes consumer object and perform some action on object and return nothing.
+but map takes a function argument hence apply operation on each element and return the stream having modified elements.
+ 
+Example: If we want to see the what are those even number between filter() and map() operation then we may choose peek like below 
+intList.stream().filter(i -> i % 2 == 0).peek(System.out::println).map(i -> i + i) So here it will print those even numbers given in TerminalVsNonTerminal.java class.
+ 
+
+
+
+
+
+
+
+
+
+

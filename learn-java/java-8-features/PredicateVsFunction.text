@@ -1,0 +1,13 @@
+Question: What is the difference between predicate and function?
+Answer: Both are predefined functional interface present in java.util.function package.
+
+Predicate                                       Function 
+It's return type is boolean                     It's return type is Object.
+It accept one input and return type would be    It also accept the one input and return type would be result.
+boolean always                                  
+It can be written in form Predicate<T>          It can be written in Function<T,R> which also accept single argument but
+which acccept single argument.                  return type of object denoted by R.
+It contain test() method.                       It contain apply() method.
+
+
+

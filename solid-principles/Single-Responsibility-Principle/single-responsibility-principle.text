@@ -1,0 +1,24 @@
+Question: What is single responsiblity principle? 
+Answer: It states that one class should have one and only one responsiblity.
+Which specifically means - we should write, change and maintain a class only for one purpose.
+Change class only when you need to change the state the of one particular object or instance.
+Example: POJO follow SRP(Single Responsibility Principle).
+
+Suppose we have 'Employee' and 'Address' class and if we want to change the state of Employee then we do not nedd to modify
+the class Address and vice-versa.
+If you would have merged both class as single POJO then modification in one field(state) of Address class needs to modify 
+and whole POJO including Employee.
+
+Worst Design: which don't follow SRP. Hitting database in POJO of Employee class. That is why we have service layer. 
+DAP layer and entities seperated.
+
+Example of single responsibility principle is how we segregate the different layers in MVC web application 
+Like we have @Entity, @Service, and @repository layers classes which all responsible for performing one task only.
+
+Question: Why single responsibility principle is important? 
+Answer: * In real world the requirements changes frequently so does out code implementation to cater the changing requirements.
+* The more responsibility your class has the more often you need to change it to prevent the frequent changes to same class.
+* Testing is easier as it would have only fewer testcases.
+* Easier to understand.
+* Less functionality measn lower dependencies to other classes.
+* So best practices says use the layers in your application and break the broad classes into smaller classes or moduels.
