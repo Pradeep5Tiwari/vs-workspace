@@ -1,5 +1,5 @@
 //package solid-principles.dependency-inversion-principle;
-
+@SuppressWarnings("all")
 public class Student {
     private Address address;
 

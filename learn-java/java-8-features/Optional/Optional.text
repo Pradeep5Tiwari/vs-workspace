@@ -1,0 +1,165 @@
+Question: What is Optional? and Why Optinal Objects?
+Answer: Java 8 added a new class Optional available to java.util package. Java optional class provide a way to deal with 
+NULL values. It is used to represent whether the a value of variable is present or not.
+
+A NullPointerException is a common issue in java application. To prevent this NullPointerException we normally add frequent 
+NULL checks in our code to check if a variable is not empty before we use it in our program. So Optional provide a better
+approch to handle such situations.
+
+You can view Optional as single value container that either contain a value or doesnot.(It's then said to be "empty")
+
+Example: @GetMapping(path="/id/{id})
+          public ResponseEntity<?> getById(@PathVariable Integer id) {
+            Employee e = repo.findById(id).get();
+            return new ResponseEntity<>(e,HTTPStatus.OK);
+          }
+
+In above example we have one method getById(@PathVariable Integer id) with one method parameter id, which is mapped with 
+rest @GepMapping annotation based on passed integer type id are retrieving results. Now in Employee objects 'e' we are 
+storing the results which is returned by findById(id) internal class using get() method or it's internal class which return
+a optional. In java 8 the return type of findById is Optional. And with this Optional how do we get the object out of it
+with get() method.
+
+Excepton Case : So everything is fine in above line of code but if we give any such id to the getById method which is not 
+present in database table then we may get 'NoSuchElementException' even though we are using optional, our code is breaking. 
+
+Question: Why so? What is wrong with our code written above?
+Answer: The wrong line of code is "Employee e = repo.findById(id).get();" It's already streaming around for us that it can 
+contain or can not contain, 
+
+So, with Optional with get() method we just check with data whether it's present or not?
+If it's present then get the data or if it's not present then return the default value, or return an exception that value
+is not present. 
+
+So problem in this above line is get() method()! 
+So, let's first disscussed with get() method.
+
+#Returning value with get(): - get() can only return a value if the wrapped object is not null. Otherwise it throws a 
+"NoSuchElementException". This is the major flow of the get() method. Ideally 'Optional' should help us to avoid such 
+unforeseen exception. Therefore this approach work against the objectives of Optional and will probably be depreciated 
+in future release.
+
+#Checking Value Presence:- When we have Optional object returned from the method or created by us, then we can check
+if there is value in it or not with the isPresent() method.
+This isPresent() method return "true" if the wrapped object is not NULL.
+From Java 11, we can do the opposite with isEmpty() method where if object is wrapped with null then it will return TRUE.
+Example: if(!e.isEmpty())
+{
+  return new ResponseEntity<>("Sorry! The Employee with given id is not present", HTTPStatus.NOT_FOUND);
+}
+So, based on the above what we can do is we can make Employee Optional 
+Optional<Employee> e = repo.findById(id);  // Make Employee as Optional 
+
+// Now check if the returned value is present or not by calling isPresent() method.
+if(e.isPresent())
+
+// Now return the value as usually we return the value using get() method which fetch the data out of Optional container. 
+return new ResponseEntity<>(e.get(), HTTPStatus.OK); and if the value is not present then return the response saying that
+"The Employee with given id is not present along with HTTPStatus NOT_FOUND. 
+
+So the optimize code would be using Optional and isPresent() 
+@GetMapping(path="/id/{id})
+          public ResponseEntity<?> getById(@PathVariable Integer id) {
+            Optional<Employee> e = repo.findById(id);
+            if(e.isPresent()){
+              return new ResponseEntity<>(e.get(),HTTPStatus.OK);  
+            }
+            else {
+              return new ResponseEntity<>("Sorry! The Employee with given id is not present", HTTPStatus.NOT_FOUND);
+            }
+          }
+
+So, once we returned above condition then our code won't break with an exception instead of exception we are printing a 
+message saying that the id is not present.
+
+// Creating Optional Objects
+We can create the optional object using with Optional static method - Of()
+the argument passsed to the Of() method cannot be null. Otherwise we will get the NullPointerException.
+
+But incase if we expect some null values, we can use the isNullable() method.
+By doing this if we pass the null reference, it doesnot throw an exception but rather returns an empty Optional object.
+Example: Let's assume if we are getting a NullPointerException and we are in need to create the optional object then 
+if(!e.isEmpty()) {
+  return ResponseEntity<>(e.get().getName().toUpperCase()); // throw NullPointerException exception.
+}
+So, to avoid above NullPointerException using optional object we can write in below 
+if(!e.isEmpty()) {
+  Optional<String> name = Optinal.of(e.get().getName());
+}
+So now above name container of Optional can contain a value or can not contain a value. 
+So, now check if the value is present or not in name so 
+if(name.isPresent()) {
+  return ResponseEntity<>(name.get().toUpperCase());
+}
+else
+{
+  return new ResponseEntity<>("Name is null", HTTPStatus.NOT_FOUND);
+} 
+
+So, this is the beauty of using Optional.of() and creating optional object but the problem still exist with creation of 
+"Optioanl.Of()" method why because it will return you a NullPointerException.
+So, if you are very sure that the element you are passing is not null then only go for Optional.Of() method. Else you 
+could have use below  
+Example: Optional<String> name = Optional.ofNullable(e.get().getName());
+
+So, what this ofNullable() going to do is it's going to create the container named as "name" (as you can see above statement)
+which is going to contain either the name or it is going to be an empty. Even if it's null then it's not going to give you
+a NullPointerException like we used to get in Optional.Of() but it will simply print the empty object.
+
+Question: Given and employee table, fetch the employee with given id, and print its name in upper case. If name is null print 
+"The name is null", using java 8.
+Answer: Employee table:
+==================
+id: Employee
+1   Pradeep
+2   Mohan
+3   Ram
+4   Shyam
+5   Alok 
+==================
+Case 1: using Optioanl.ofNullable()
+Code: 
+@GetMapping(path="/id/{id}")
+public ResponseEntity findById(@PathVariable Integer id) {
+  Optional<Employee> e = repository.findById(id);
+  if(!e.isEmpty()) {
+    Optioanl<String> name = Optional.ofNullable(e.get().getName().toUpperCase());
+    if(name.isPresent()) {
+      return new ResponseEntity<>("Name is present", + name + HTTPStatus.OK);
+    }
+    else {
+      return new ResponseEntity<>("Name is not found as per given id", HTTPStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<>("Sorry! The name is not found for given id", HTTPStatus.NOT_FOUND);
+  }
+}
+==============================================================================================================================
+Case 2(Recommended): using ifPresentOrElse(null,null); Java 9+ has this method.
+Syntax: 
+nullableEmpName.ifPresentOrElse(name -> System.out.println("present"), () -> System.out.println("No value is present"));
+
+Code Example: 
+@GetMapping(path="/id/{id}")
+public ResponseEntity findById(@PathVariable Integer id) {
+  Optional<Employee> e = repository.findById(id);
+  if(e!=isEmpty()) {
+    Optional<String> name = Optional.ofNullable(e.get().getName());
+    if(name.ifPresentOrElse("The name is present" + name.toUpperCase(), ()->System.out.println("The name is not present")));
+  }
+}
+==========================================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
