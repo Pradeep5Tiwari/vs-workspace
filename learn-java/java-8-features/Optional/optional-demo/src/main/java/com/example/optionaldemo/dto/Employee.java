@@ -1,11 +1,7 @@
-import java.lang.annotation.Inherited;
-import javax.annotation.processing.Generated;
+package com.example.optionaldemo.dto;
 
-@Entity
 public class Employee {
     
-    @Id
-    @Generated
     private int id;
     private String name;
     public Employee(int id, String name) {

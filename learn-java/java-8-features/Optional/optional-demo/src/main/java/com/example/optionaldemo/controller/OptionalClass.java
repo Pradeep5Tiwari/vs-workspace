@@ -1,10 +1,20 @@
+package com.example.optionaldemo.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.optionaldemo.dto.Employee;
+import com.example.optionaldemo.repository.OptionalRepository;
+
 import java.util.Optional;
 
 @RestController
 public class OptionalClass {
 
-    @Autowired 
-    private OptionalRepository repository;         // dependency invesion
+    OptionalRepository repository;         // dependency invesion
 
 /* Optional.of():- Does throw exception(NullpointerException) when input / string value not found.
  * When we are very sure that the reference object does not have null then we create object with Optional.of() method.
@@ -12,19 +22,18 @@ public class OptionalClass {
  * Example: Case 1: Given below  
  */    
 
-    @GetMapping(path="/id/{id]}")
-    public ResponseEntity findById(@PathVariable Integer id) {
+    @GetMapping(path = "/id/{id}")
+    public ResponseEntity<?> findById(@PathVariable Integer id) {
         Optional<Employee> e = repository.findById(id);
-        if(!e.isEmpty()) {
+        if (!e.isEmpty()) {
             Optional<String> name = Optional.of(e.get().getName());
-            if(name.isPresent()) {
-                return new ResponseEntity<>(e.get().toUpperCase(),HTTPStatus.OK);
-            }
-            else {
-            return new ResponseEntity<>("Name is null", HTTPStatus.NOT_FOUND);     
+            if (name.isPresent()) {
+                return new ResponseEntity<>(e.get().getName().toUpperCase(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Name is null", HttpStatus.NOT_FOUND);
             }
         }
-        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HTTPStatus.NOT_FOUND);
+        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HttpStatus.NOT_FOUND);
     }
     
 /* Optional.ofNUllable():- does not throw exception(NullPointerException) instead return simple empty optional object.
@@ -34,22 +43,22 @@ public class OptionalClass {
  * Example:Case 2: Given below  
  */    
     @GetMapping(path = "/id/{id}")
-public ResponseEntity<?> findByEmployeeId(@PathVariable Integer id) {
-    Optional<Employee> e = repository.findByEmployeeId(id); // 15 as input which does not exist in database table.
-    if (!e.isEmpty()) { // condition get true as we are passing 15 as value but by adding !(not) it
-                        // works opposite.
-        Optional<String> name = Optional.ofNullable(e.get().getName());
-        if (name.isPresent()) {
-            return new ResposeEntity<>(name.get().toUpperCase(), HTTPStatus.OK);
-        } else {
-            return new ResposeEntity<>("Name is null", HTTPStatus.NOT_FOUND);
-        }
-    } else
-        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HTTPStatus.NOT_FOUND);
-}
+    public ResponseEntity<?> findByEmployeeId(@PathVariable Integer id) {
+        Optional<Employee> e = repository.findByEmployeeId(id); // 15 as input which does not exist in database table.
+        if (!e.isEmpty()) { // condition get true as we are passing 15 as value but by adding !(not) it
+                            // works opposite.
+            Optional<String> name = Optional.ofNullable(e.get().getName());
+            if (name.isPresent()) {
+                return new ResponseEntity<>(name.get().toUpperCase(), HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Name is null", HttpStatus.NOT_FOUND);
+            }
+        } else
+            return new ResponseEntity<>("Sorry! Employee with given ID is not present", HttpStatus.NOT_FOUND);
+    }
 
 
-
+    
 /* The isEmpty() method checks whether a string is empty or not. This method returns true if the string is empty (length() is 0), and false if not.
  * Example: 
  * String myStr1 = "Hello";
@@ -95,22 +104,24 @@ Returns:A boolean value: true - The string is empty (length() is 0)
    */
 
    //Example: Case 2: Instead of writing line 106-110 we can write in single line.  
-      @GetMapping(path = "/id/{id}")
-        public ResponseEntity<?> findByEmpId(@PathVariable Integer id) {
-        Optional<Employee> e = repository.findByEmpId(id); 
-        if (!e.isEmpty()) { 
-        Optional<String> name = Optional.ofNullable(e.get().getName());
+     @GetMapping(path = "/id/{id}")
+   public ResponseEntity<?> findByEmpId(@PathVariable Integer id) {
+       Optional<Employee> e = repository.findByEmpId(id);
+       if (!e.isEmpty()) {
+           Optional<String> name = Optional.ofNullable(e.get().getName());
 
-      /*  if (name.isPresent()) {
-            return new ResposeEntity<>(name.get().toUpperCase(), HTTPStatus.OK);
-        } else {
-            return new ResposeEntity<>("Name is null", HTTPStatus.NOT_FOUND);
-         } */
-        name.ifPresent("Name is present: " + name); 
-    } else
-        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HTTPStatus.NOT_FOUND);
-        return null;
-}
+           /*
+            * if (name.isPresent()) {
+            * return new ResposeEntity<>(name.get().toUpperCase(), HTTPStatus.OK);
+            * } else {
+            * return new ResposeEntity<>("Name is null", HTTPStatus.NOT_FOUND);
+            * }
+            */
+           name.ifPresent(n -> System.out.println("Name is present: " + n));
+       } else
+           return new ResponseEntity<>("Sorry! Employee with given ID is not present", HttpStatus.NOT_FOUND);
+       return null;
+   }
 /* Example: Case 3: What if name is not present? Again this would fail. Again we have one more method ifPresentOrElse(null,null) */ 
 /* So, */
 // name.ifPresent()  --> This is consumer 
@@ -122,10 +133,11 @@ Returns:A boolean value: true - The string is empty (length() is 0)
         if (!e.isEmpty()) { // condition get true as we are passing 15 as value but by adding !(not) it works opposite.
         Optional<String> name = Optional.ofNullable(e.get().getName());
         //name.ifPresent("Name is present: " + name); 
-        name.ifPresentOrElse("Name is present: " + name, () -> System.out.println("Sorry! The name is not present"));   // Instead of writing line name.ifPresent("Name is present" + name); we can write this line.
-        } else
-        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HTTPStatus.NOT_FOUND);
+        name.ifPresentOrElse(n1 -> System.out.println("Name is present: " + n1), () -> System.out.println("Sorry! The name is not present"));   // Instead of writing line name.ifPresent("Name is present" + name); we can write this line.
+        } else {
+        return new ResponseEntity<>("Sorry! Employee with given ID is not present", HttpStatus.NOT_FOUND);
+        } 
         return null;
-        }
     }
+}
 
