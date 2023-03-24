@@ -1,4 +1,4 @@
-public class ProfessionFactory implements Profession {
+public class ProfessionFactory {
     
     public Profession getProfession(String typeOfProfession) {
 
