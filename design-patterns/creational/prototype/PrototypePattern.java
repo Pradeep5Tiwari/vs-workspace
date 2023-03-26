@@ -19,14 +19,14 @@ public class PrototypePattern implements Cloneable {
         employeList.add("Manish");
     }
 
-    public List<String> getEmployeList() {
+    public List<String> getEmployeeList() {
         return employeList;
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
         List<String> temp = new ArrayList<String>();
-        for(String s:this.getEmployeList()) {
+        for(String s:this.getEmployeeList()) {
             temp.add(s);
         }
         return new PrototypePattern(temp);
