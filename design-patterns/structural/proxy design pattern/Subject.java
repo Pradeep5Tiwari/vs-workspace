@@ -1,3 +1,3 @@
 public interface Subject {
-     public void myMethod();
+     void myMethod();
 }
