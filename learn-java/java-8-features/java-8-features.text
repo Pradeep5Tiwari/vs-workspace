@@ -1,0 +1,39 @@
+Question: Why java 8? What was the main agenda behind java 8?
+Answer: The significant reason for introducing java 8 was to introduce the consciseness in the code. 
+Java 8 bring the functional programming which is enabled by lambda expresssion. Lambda expression to create the concise codebase.
+
+If you have observed, that with python and scala we can do the same thing by very less line of code(LOC).
+By mid 20's java loss the market due to these language and to prevent further loss java upgraded itself from only OOP 
+language to some functional programming FP to create the concise codebase.
+
+Question: What are the java 8 new features. 
+Answer: Java 8 brings a lot of features which are given below.
+1. Lambda expression
+2. Stream API
+3. Default method in interface.
+4. Static method in interface.
+5. Functional Interface.
+6. Optional
+7. Method References
+8. Date API
+9. Nashron a javascript powerful engine.
+
+Question: What are the main advantages of using java 8?
+Answer: The main advantages of using java 8 is to 
+1. write a consciseness in the code. 
+2. More Readable and reusable.
+3. More Testable
+4. Paralell operation.
+
+
+Java 8 new feeatures: 
+Predicate, 
+Function, 
+Consumer,
+Supplier,
+BiXXX,
+Streams,
+Paralell Streams
+
+
+

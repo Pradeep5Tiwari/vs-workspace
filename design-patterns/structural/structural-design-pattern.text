@@ -1,0 +1,16 @@
+Structural Design Pattern: are how to put the objects together and define a relationship to construct the good object-
+oriented design that is maintainable, easy to enhance. So, GOF give us structural design pattern for that.
+
+* Structural design pattern show you how to assemble the different pieces of a system together in a flexible and extensible 
+fashion.
+* Structural design pattern help us to guarantee that when one of the parts changes, the entire structure does not need 
+to change. 
+
+Structural Design Pattern
+1. Proxy Design Pattern
+2. Flyweight Design Pattern 
+3. Facade Design Pattern 
+4. Composite Design Pattern 
+5. Adaptor Design Pattern 
+6. Docorator Design Pattern
+

@@ -1,0 +1,11 @@
+Design Principles: Basic Principles: 
+
+In Java, the design principles are the set of advice used as rules in design making. In Java, the design principles 
+are similar to the design patterns concept. The only difference between the design principle and design pattern is that the design principles are more 
+generalized and abstract. The design pattern contains much more practical advice and concrete. The design patterns are related to the entire class problems,
+not just generalized coding practices.
+
+•	DRY(Don’t Repeat Yourself Principle) 
+•	KISS(Keep It Simple and Stupid Principle)
+•	YAGNI (You Aren’t Gonna Need It Principle) 
+•	SLAP(Single Level of Abstraction Principle)

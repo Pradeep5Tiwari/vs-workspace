@@ -1,0 +1,37 @@
+Question: What is dependency inversion principle?
+Answer: It states that depend on 'abstraction' not on 'concretion'. We should design our software in such a way that 
+various modules can be seperated from each other using an abstract layer to bind them together.
+
+Question: Why dependency inversion is important?
+Answer: It allow programmer to remove the hardcoded dependencies so that application becomes loosely coupled and extendable.
+
+Example: 
+public class Student {
+    private Address address;
+    Student() {
+       address = new Address();
+    }
+}
+In the above example "Student" class requires and "Address" object and its responsible for initializing and using the Address
+object. if Address class is changed in future then we have to make changes in Student class also. This makes tight coupling 
+bewteen Student and Address objects. We can resolve this problem using the dependency inversion / injectoon design pattern.
+Example: Address object will be implemented independenctly and will be provided to "Student" class when Student is instantiated
+by using the constructor-based OR setter based dependency inversion.
+
+
+
+
+
+In above example you would see that there is tight coupling untill we give stuedent reference the Address() constructor
+won't be created. Hence the problem lies where my Address() constructor is depend on Student() constructor. 
+Untill we don't give Student() it the Address() won't be created.
+
+So instead of depending on concrete cretion like "new Address()" we should depend on the abstraction and 
+what is the way to do that abstraction is - by using "autowire" either by giving it all dependency to some XML file 
+so that if you want to change something then you can change xml file and not your whole class.
+
+Now if I don't want Address() class so better don't change the class but change xml file.
+
+
+
+  

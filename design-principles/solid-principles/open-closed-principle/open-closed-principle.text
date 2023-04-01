@@ -1,0 +1,27 @@
+Question: What is open-closed principle?
+Answer: The open-closed principle states that software component should be OPEN FOR EXTENSION and CLOSED FOR MODIFICATION.
+
+The term OPEN FOR EXTENSION: means that we can extend and add/include extra functionalities in our code without altering / affecting 
+our existing implementation.
+
+The term CLOSED FOR MODIFICATION: means that after we add/include the extra functionalities, we should not modify the 
+existing implementation.
+
+In real world you would have noticed that you change something to cater the new requirements and some other functionality 
+breaks because of your change. So, to prevent this we have this principle in hand.
+
+Question: How to implement the open-closed principle?
+Answer: The application classes should be design in such a way that whenever the fellow developers want to change the 
+flow of control in specific conditions in application, all they need to extend the class and override some functions and
+that's it.
+
+Example: Create a POJO(PlainOldJavaObject) Employee with id,name. Now new functionality comes which says add training 
+location. your constructor will fail for employees who did not do training. better extend the Employee class, name it 
+Traineed employee then add constructor.
+
+Question: Why the open-closed principle is important?
+Answer: Using this principle we seperate the 'existing code' from 'modified code' so it provide better stability, maintainability
+and minimize changes as in your code.
+
+
+

@@ -1,0 +1,25 @@
+Question: What is interface segregation principle? 
+Answer: "The ISP(Interface Segregation Principle) states that the client should not be forced to implement the unnecessary 
+methods which they will not use"  
+ISP is applicable to interfaces as a single responsiblity principle holds to classes.
+ISP states that we should split our interfaces into smaller and more specific ones.
+
+Example: Pizza
+1) Place order online or walkin or telephone
+2) Pay online / Cash/ At Delivery
+
+Note: In this ISP example we have segreagated 'PizzaApplication' common interafce into 3 different interface and their respected
+implementing classes each containing two methods. So this won't allow forceful implemenation of unnecessary methods.   
+Example: 
+Interface                   Implementing class 
+PizzaApplication            PizzaClient          ---> BAD PRACTICE don't implement it.
+
+PizzaOnlineApplication ->   PizzaClientOnlineApplication 
+PizzaByWalkinApplication -> PizzaClientWalkinApplication
+PizzaByTelephone        ->  PizzaClientTelephoneApplication
+
+Question: Why interface segregation principle is important?
+Answer: To prevent client from unnecessary getting stuck in Implementing unwanted methods.
+
+
+

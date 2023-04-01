@@ -1,0 +1,10 @@
+Question: Why do we need solid principle? 
+Answer: The borad goal of SOLID PRINCIPEL is to reduce the dependencies, so that engineers change one part of software without impacting others. 
+Additionally they are intended to make design easier to understand, maintain and extend.
+Ultimately using these design principles makes it easy for software engineer to avoid issues and to build adaptive, effective and agile software.
+Design principles lead to better code reusability, maintainability, design pattern and testability.
+
+
+  
+
+

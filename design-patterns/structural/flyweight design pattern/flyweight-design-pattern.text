@@ -1,0 +1,26 @@
+Question: What is flyweight design pattern?
+Answer: Flyweight design pattern: is common sharable object which is used in multiple context simultanoesuly. 
+Each flywieght object can acts as independent object.
+
+Question: What is Instrinsic and Extrinsic attributes?
+Answer: 
+
+Intrinsic:- When your application needs large number of object that share most of the common attributes called Intrinsic 
+attributes or proeperties.
+
+Extrinsic:- When your application needs large number of objects that share unique attributes called Extrinsic attributes 
+or proeperties.
+
+Application of Flyweight Design Pattern:- We need to control the memory consumption by large number of objects by creating 
+fewer objects and sharing them across the application.
+
+When to use flyweight design pattern?
+Answer: Number of objects are huge + Objects are mostly common 
+
+When the number of objects created by application is huge.
+When the object creation is heavy on memory and time consuming.
+When large number of object use by application share the most common attributes.
+When we define many Intrinsic and few Extrinsic attributes or proeperties which is defined by client program.
+
+
+

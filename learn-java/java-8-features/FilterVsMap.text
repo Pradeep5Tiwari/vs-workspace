@@ -1,0 +1,44 @@
+Question: Difference between filter() and map().
+Answer: filter():- If we want to fetch / filter objects from collection like e.g filter only even numbers from array list.
+collection use the filter() for configuration of stream.
+
+Map():- If we want to perform some operation on each objects of the collection then create another mapped object with 
+different value (after operation is performed) for each object of that collection,then use map.
+
+In filter(), due to filtering there will be a less number of filter object as compare to original list as objects get filtered based on condition while 
+In map(), there will be a same number of objects are there in both new and orignal list.
+Collection use the map() for configuration of the stream.
+
+Quyestion: How to create the stream? 
+Answer: Example: Stream s = collectionObject.stream();
+ * Once we get the stream object we can process the object of collection.
+ * Prcoessing of stream consists of two steps/stages.
+ * 1) configuratoon of stream and 
+ * 2) processing that configuration.
+ * And configuration can be done by using below                                       
+ * 1) Map 
+ * 2) Filter                                
+ *                                                  Streams
+ *                                                     |
+ *                                      -----------------------------------            
+ *                                      |                                  |
+ *                              Configuration of stream             Processing of that configuration 
+ *                                  |
+ *                          ------------------
+ *                          |                |
+ *                         Map             Filter
+ * **********************************************************************************************************************
+ *                                                  Streams
+ *                                                     |
+ *         ---------------------------------------------            
+ *         |                                          |
+ * Configuration of stream             Processing of that configuration 
+ *         |                                          |  
+ * ------------------        -------------------------------------------------------------------------------                      
+ * |                |         |          |           |          |            |               |              |
+ * Map             Filter   Collect    Count       Sorted    Min Max      For Each         toArray          of()
+ *************************************************************************************************************************
+
+
+
+
