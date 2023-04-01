@@ -1,9 +1,0 @@
-Question: What are SOLID principles?
-Answer: The following five concept make up our SOLID principles.
-
-1. S - Single Responsibility
-2. O - Open/Closed
-3. L - Liskov Substitution
-4. I - Interface Segregation
-5. D - Dependency Injecton
-
