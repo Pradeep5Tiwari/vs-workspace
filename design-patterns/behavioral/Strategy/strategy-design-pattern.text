@@ -1,0 +1,25 @@
+Question: What is strategy design pattern?
+Answer: strategy design pattern is a behaviral design pattern that enable use to select an alogorithm at runtime instead
+of implementing single alogorithm directly. Code receive runtime instructions as to which algorithm in family of algorithm
+to use.
+
+Example: Assume we have multiple encoding technique like MD-5, SHA1 and SHA2.
+Now assume we have two micrservices where one microservice wants to send some information / data to the other microservice 
+in encrypted format because for security reason we cannot simple send / tansfer the data or infomation in string or text
+format. So, we have to encode it and then send it.
+
+strategy design pattern follow the solid principles so, if you get the requirements to encrypt the given data/information 
+into MD-5 then do encrypt using MD-5, If SHA-1, then do SHA-1 and if SHA-3 then as well do encrypt using SHA-3 as well. 
+If again some other requirements comes to encrypt into SHA1 then instead modifying the existing class we should extend the \
+class and then add the new feature to it using SHA1.
+
+Participants: 
+1. Common Interface - Encoding Options(which contains type of encrypting algorithm)
+2. implementing Classes - MD5, SHA1, SHA2
+3. Constant Enum - ENUM class for delcaring encrypting algorithm key Constant basically a patterns.
+4. Strategy Factory - Factory class which decide whose/which encryption algorithm(MD5, SHA1, SHA2) to call at runtime. 
+
+
+
+
+
