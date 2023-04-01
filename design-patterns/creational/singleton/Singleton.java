@@ -1,4 +1,9 @@
-public class Singleton {
+package creational.singleton;
+
+import java.io.Serializable;
+import java.lang.Cloneable;
+public class Singleton implements Serializable, Cloneable {
+    
     private static Singleton firstInstance; // Just one private static class type instance.
 
     private Singleton() { // private constructor so that we cannot create the object outside class via constructor. 
@@ -12,6 +17,13 @@ public class Singleton {
         }
         return firstInstance; // since its class type we need to return it.
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        // TODO Auto-generated method stub
+        return super.clone();
+    }
+    
 }
 
 
